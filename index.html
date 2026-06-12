@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="LiftLore — a gamified gym and workout tracker. Log workouts, earn XP, level up, unlock badges, and climb the leaderboard." />
+  <title>LiftLore — Gamified Workout Tracker</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="src/css/tokens.css" />
+  <link rel="stylesheet" href="src/css/layout.css" />
+  <link rel="stylesheet" href="src/css/components.css" />
+  <link rel="stylesheet" href="src/css/animations.css" />
+
+  <script type="module" src="main.js"></script>
+</head>
+<body>
+  <header class="app-header">
+    <a href="#dashboard" class="brand" data-view-link="dashboard">
+      <span class="brand-plate" aria-hidden="true">L</span>
+      <span class="brand-name">LiftLore</span>
+    </a>
+    <span class="header-level" id="header-level" aria-label="Current level">LV 1</span>
+    <nav class="main-nav" aria-label="Main navigation">
+      <ul class="nav-list">
+        <li><button class="nav-btn is-active" data-view="dashboard"><span class="nav-icon" aria-hidden="true">⌂</span><span class="nav-label">Home</span></button></li>
+        <li><button class="nav-btn" data-view="log"><span class="nav-icon" aria-hidden="true">＋</span><span class="nav-label">Log</span></button></li>
+        <li><button class="nav-btn" data-view="library"><span class="nav-icon" aria-hidden="true">▤</span><span class="nav-label">Library</span></button></li>
+        <li><button class="nav-btn" data-view="nutrition"><span class="nav-icon" aria-hidden="true">◔</span><span class="nav-label">Food</span></button></li>
+        <li><button class="nav-btn" data-view="leaderboard"><span class="nav-icon" aria-hidden="true">▲</span><span class="nav-label">Ranks</span></button></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="app-main">
+
+    <!-- ============ DASHBOARD ============ -->
+    <section class="view is-active" id="view-dashboard" aria-labelledby="dashboard-title">
+      <h1 class="view-title" id="dashboard-title">Dashboard</h1>
+
+      <article class="player-card">
+        <div class="player-card-top">
+          <div class="player-level-ring">
+            <span class="player-level-num" id="player-level">1</span>
+          </div>
+          <div class="player-identity">
+            <h2 class="player-title" id="player-title">Rookie</h2>
+            <p class="player-xp-line">
+              <span class="mono" id="player-xp">0</span> XP
+              <span class="xp-to-next mono" id="xp-to-next">500 to next level</span>
+            </p>
+          </div>
+        </div>
+        <div class="xp-bar" role="progressbar" aria-label="XP progress to next level"
+             aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="xp-bar">
+          <div class="xp-bar-fill" id="xp-bar-fill"></div>
+        </div>
+      </article>
+
+      <div class="stat-grid">
+        <div class="stat-tile">
+          <span class="stat-value mono" id="stat-workouts">0</span>
+          <span class="stat-label">Workouts</span>
+        </div>
+        <div class="stat-tile">
+          <span class="stat-value mono" id="stat-streak">0</span>
+          <span class="stat-label">Day Streak</span>
+        </div>
+        <div class="stat-tile">
+          <span class="stat-value mono" id="stat-badges">0/9</span>
+          <span class="stat-label">Badges</span>
+        </div>
+      </div>
+
+      <div class="settings-row">
+        <span class="settings-label">Units</span>
+        <div class="unit-toggle" role="group" aria-label="Weight units">
+          <button class="unit-btn is-active" data-unit="kg">kg</button>
+          <button class="unit-btn" data-unit="lbs">lbs</button>
+        </div>
+      </div>
+
+      <h2 class="section-heading">Badges</h2>
+      <ul class="badge-shelf" id="badge-shelf">
+        <!-- Badge tiles rendered by JS -->
+      </ul>
+
+      <button class="btn btn-primary btn-block" data-view-link="log">Start a Workout</button>
+    </section>
+
+    <!-- ============ LOG WORKOUT ============ -->
+    <section class="view" id="view-log" aria-labelledby="log-title">
+      <h1 class="view-title" id="log-title">Log Workout</h1>
+
+      <div class="search-block">
+        <label class="field-label" for="exercise-search">Find an exercise</label>
+        <input type="search" id="exercise-search" class="input" placeholder="e.g. bench press" autocomplete="off" />
+        <div class="search-results" id="search-results" role="listbox" aria-label="Exercise search results"></div>
+      </div>
+
+      <form class="set-form is-hidden" id="set-form" aria-labelledby="set-form-title">
+        <h2 class="section-heading" id="set-form-title">Add <span id="selected-exercise-name"></span></h2>
+        <div class="set-form-fields">
+          <div class="field">
+            <label class="field-label" for="input-sets">Sets</label>
+            <input type="number" id="input-sets" class="input mono" min="1" max="20" value="3" required />
+          </div>
+          <div class="field">
+            <label class="field-label" for="input-reps">Reps</label>
+            <input type="number" id="input-reps" class="input mono" min="1" max="100" value="10" required />
+          </div>
+          <div class="field">
+            <label class="field-label" for="input-weight">Weight (<span class="unit-label">kg</span>)</label>
+            <input type="number" id="input-weight" class="input mono" min="0" max="500" step="0.5" value="20" required />
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Add to Session</button>
+      </form>
+
+      <h2 class="section-heading">Session Queue</h2>
+      <ul class="session-queue" id="session-queue">
+        <li class="queue-empty" id="queue-empty">No exercises yet — search above to add one.</li>
+      </ul>
+
+      <div class="session-footer">
+        <p class="session-volume">Session volume: <span class="mono" id="session-volume">0</span> <span class="unit-label">kg</span></p>
+        <button class="btn btn-gold btn-block" id="finish-workout" disabled>Finish Workout</button>
+      </div>
+    </section>
+
+    <!-- ============ EXERCISE LIBRARY ============ -->
+    <section class="view" id="view-library" aria-labelledby="library-title">
+      <h1 class="view-title" id="library-title">Exercise Library</h1>
+
+      <div class="filter-bar" role="group" aria-label="Filter by muscle group" id="muscle-filters">
+        <button class="filter-btn is-active" data-muscle="all">All</button>
+        <button class="filter-btn" data-muscle="chest">Chest</button>
+        <button class="filter-btn" data-muscle="back">Back</button>
+        <button class="filter-btn" data-muscle="legs">Legs</button>
+        <button class="filter-btn" data-muscle="shoulders">Shoulders</button>
+        <button class="filter-btn" data-muscle="arms">Arms</button>
+        <button class="filter-btn" data-muscle="core">Core</button>
+      </div>
+
+      <div class="loading-spinner is-hidden" id="library-spinner" role="status" aria-live="polite">
+        <span class="spinner" aria-hidden="true"></span>
+        <span class="visually-hidden">Loading exercises…</span>
+      </div>
+
+      <ul class="exercise-grid" id="exercise-grid">
+        <!-- Exercise cards rendered by JS -->
+      </ul>
+    </section>
+
+    <!-- ============ NUTRITION (Week 6) ============ -->
+    <section class="view" id="view-nutrition" aria-labelledby="nutrition-title">
+      <h1 class="view-title" id="nutrition-title">Nutrition</h1>
+      <p class="coming-soon">Nutrition tracking arrives in the next build. 🍳</p>
+    </section>
+
+    <!-- ============ LEADERBOARD (Week 6) ============ -->
+    <section class="view" id="view-leaderboard" aria-labelledby="leaderboard-title">
+      <h1 class="view-title" id="leaderboard-title">Leaderboard</h1>
+      <p class="coming-soon">The leaderboard arrives in the next build. 🏆</p>
+    </section>
+
+  </main>
+
+  <div class="toast-stack" id="toast-stack" aria-live="polite"></div>
+</body>
+</html>

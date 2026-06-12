@@ -1,0 +1,44 @@
+/* LiftLore design tokens */
+:root {
+  /* Colour */
+  --c-bg: #0d0d0d;
+  --c-surface: #161616;
+  --c-surface-raised: #1f1f1f;
+  --c-border: #2b2b2b;
+  --c-accent: #ff6b00;
+  --c-accent-dim: #c25200;
+  --c-gold: #ffd166;
+  --c-text: #f0ede8;
+  --c-text-dim: #9b958c;
+  --c-danger: #e5484d;
+
+  /* Type */
+  --font-heading: "Barlow Condensed", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-8: 3rem;
+
+  /* Shape */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-full: 999px;
+
+  /* Layout */
+  --nav-height: 64px;
+  --content-max: 1100px;
+
+  /* Motion */
+  --ease-snap: cubic-bezier(0.2, 0.9, 0.3, 1.2);
+  --dur-fast: 150ms;
+  --dur-med: 300ms;
+  --dur-slow: 600ms;
+}
