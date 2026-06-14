@@ -47,6 +47,10 @@ export default class NutritionAPI {
     const params = new URLSearchParams({
       api_key: this.apiKey,
       query,
+      // Curated generic foods only — excluding "Branded" drops the hundreds of
+      // near-duplicate packaged products that clutter results with conflicting
+      // calorie values.
+      dataType: "Foundation,SR Legacy,Survey (FNDDS)",
       pageSize: "10",
     });
     const res = await fetch(`${BASE_URL}?${params}`);
