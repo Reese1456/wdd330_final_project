@@ -158,16 +158,48 @@
       </ul>
     </section>
 
-    <!-- ============ NUTRITION (Week 6) ============ -->
+    <!-- ============ NUTRITION ============ -->
     <section class="view" id="view-nutrition" aria-labelledby="nutrition-title">
       <h1 class="view-title" id="nutrition-title">Nutrition</h1>
-      <p class="coming-soon">Nutrition tracking arrives in the next build. 🍳</p>
+
+      <div class="search-block">
+        <label class="field-label" for="food-search">Log a food <span class="field-hint">(values per 100 g)</span></label>
+        <input type="search" id="food-search" class="input" placeholder="e.g. chicken breast" autocomplete="off" />
+        <div class="search-results" id="food-results" role="listbox" aria-label="Food search results"></div>
+      </div>
+
+      <h2 class="section-heading">Today's Macros</h2>
+      <div class="macro-grid">
+        <div class="macro-tile">
+          <span class="macro-value mono" id="macro-calories">0</span>
+          <span class="macro-label">Calories</span>
+        </div>
+        <div class="macro-tile">
+          <span class="macro-value mono" id="macro-protein">0g</span>
+          <span class="macro-label">Protein</span>
+        </div>
+        <div class="macro-tile">
+          <span class="macro-value mono" id="macro-carbs">0g</span>
+          <span class="macro-label">Carbs</span>
+        </div>
+        <div class="macro-tile">
+          <span class="macro-value mono" id="macro-fat">0g</span>
+          <span class="macro-label">Fat</span>
+        </div>
+      </div>
+
+      <h2 class="section-heading">Food Log</h2>
+      <ul class="session-queue" id="food-log">
+        <li class="queue-empty" id="food-log-empty">Nothing logged yet — search above to add a food.</li>
+      </ul>
     </section>
 
-    <!-- ============ LEADERBOARD (Week 6) ============ -->
+    <!-- ============ LEADERBOARD ============ -->
     <section class="view" id="view-leaderboard" aria-labelledby="leaderboard-title">
       <h1 class="view-title" id="leaderboard-title">Leaderboard</h1>
-      <p class="coming-soon">The leaderboard arrives in the next build. 🏆</p>
+      <ol class="leaderboard" id="leaderboard-list">
+        <!-- Ranked rows rendered by JS -->
+      </ol>
     </section>
 
   </main>

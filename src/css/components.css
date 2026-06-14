@@ -53,6 +53,13 @@
   margin-bottom: var(--space-1);
 }
 
+.field-hint {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--c-text-dim);
+  opacity: 0.8;
+}
+
 .input {
   width: 100%;
   background: var(--c-surface);
@@ -482,6 +489,209 @@
   box-shadow: 0 4px 24px rgb(0 0 0 / 0.5);
 }
 
+/* ---------- Macro grid ---------- */
+.macro-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.macro-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+}
+
+.macro-value {
+  font-weight: 600;
+  font-size: 1.4rem;
+  color: var(--c-gold);
+}
+
+.macro-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--c-text-dim);
+}
+
+/* ---------- Leaderboard ---------- */
+.leaderboard {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.leaderboard-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  margin-bottom: var(--space-2);
+}
+
+.leaderboard-row.is-you {
+  border-color: var(--c-accent);
+  background: var(--c-surface-raised);
+}
+
+.lb-rank {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1.2rem;
+  color: var(--c-text-dim);
+  width: 2rem;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.leaderboard-row.is-medal .lb-rank {
+  font-size: 1.5rem;
+}
+
+.lb-avatar {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  background: var(--c-surface-raised);
+  border: 1px solid var(--c-border);
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: var(--c-gold);
+  flex-shrink: 0;
+}
+
+.lb-identity {
+  flex: 1;
+  min-width: 0;
+}
+
+.lb-name {
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.lb-meta {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--c-text-dim);
+}
+
+.lb-xp {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--c-gold);
+  flex-shrink: 0;
+}
+
+/* ---------- Level-up overlay ---------- */
+.levelup-overlay {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgb(13 13 13 / 0.82);
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-med) ease;
+}
+
+.levelup-overlay.is-active {
+  opacity: 1;
+}
+
+.levelup-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-6) var(--space-8);
+  background: var(--c-surface);
+  border: 2px solid var(--c-gold);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 0 48px rgb(255 209 102 / 0.35);
+  text-align: center;
+}
+
+.levelup-kicker {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--c-accent);
+  margin: 0;
+}
+
+.levelup-num {
+  font-weight: 600;
+  font-size: 4.5rem;
+  line-height: 1;
+  color: var(--c-gold);
+  margin: 0;
+}
+
+.levelup-title {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  color: var(--c-text);
+  margin: 0;
+}
+
+/* ---------- Badge unlock pop ---------- */
+.badge-pop {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  background: var(--c-surface-raised);
+  border: 1px solid var(--c-gold);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  box-shadow: 0 4px 24px rgb(0 0 0 / 0.5);
+}
+
+.badge-pop-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.badge-pop-text {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.badge-pop-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--c-accent);
+}
+
+.badge-pop-name {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
 /* ---------- Desktop: 768px+ ---------- */
 @media (min-width: 768px) {
   .exercise-grid {
@@ -490,6 +700,10 @@
 
   .badge-shelf {
     grid-template-columns: repeat(5, 1fr);
+  }
+
+  .macro-grid {
+    grid-template-columns: repeat(4, 1fr);
   }
 
   .toast-stack {

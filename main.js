@@ -2,22 +2,28 @@
 
 import Player, { BADGES } from "./src/modules/player.js";
 import ExerciseDB from "./src/api/exerciseDB.js";
+import NutritionAPI from "./src/api/foodDataCentral.js";
 import initWorkoutLog from "./src/modules/workoutLog.js";
 import initExerciseLibrary from "./src/modules/exerciseLibrary.js";
+import initNutrition from "./src/modules/nutrition.js";
+import initLeaderboard from "./src/modules/leaderboard.js";
 import { setXPBar } from "./src/modules/ui.js";
 
 // config.js is gitignored, so it may not exist on a fresh clone or on the
 // deployed site — fall back to mock mode rather than failing to load.
 let exerciseDbKey = "";
+let nutritionKey = "";
 try {
   const config = await import("./config.js");
   exerciseDbKey = config.EXERCISEDB_KEY ?? "";
+  nutritionKey = config.USDA_API_KEY ?? "";
 } catch {
-  console.info("No config.js found — running with mock exercise data.");
+  console.info("No config.js found — running with mock exercise and food data.");
 }
 
 const player = new Player();
 const exerciseApi = new ExerciseDB(exerciseDbKey);
+const nutritionApi = new NutritionAPI(nutritionKey);
 
 /* ---------- View switching ---------- */
 const views = document.querySelectorAll(".view");
@@ -26,6 +32,8 @@ const navButtons = document.querySelectorAll(".nav-btn");
 function showView(name) {
   views.forEach((v) => v.classList.toggle("is-active", v.id === `view-${name}`));
   navButtons.forEach((b) => b.classList.toggle("is-active", b.dataset.view === name));
+  // The leaderboard merges live player XP, so re-render it on each visit.
+  if (name === "leaderboard") renderLeaderboard();
   window.scrollTo({ top: 0 });
 }
 
@@ -107,6 +115,14 @@ initExerciseLibrary({
   api: exerciseApi,
   onExerciseSelected: () => showView("log"),
 });
+
+initNutrition({
+  player,
+  api: nutritionApi,
+  onProfileChange: refreshDashboard,
+});
+
+const renderLeaderboard = initLeaderboard({ player });
 
 applyUnits();
 refreshDashboard();

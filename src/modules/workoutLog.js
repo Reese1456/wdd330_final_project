@@ -2,7 +2,7 @@
 // Weights are entered in the player's chosen units but stored in kg.
 
 import { KG_PER_LB } from "./player.js";
-import { toast } from "./ui.js";
+import { toast, showLevelUp, showBadgeUnlock } from "./ui.js";
 
 const SEARCH_DEBOUNCE_MS = 400;
 const MIN_QUERY_LENGTH = 2;
@@ -155,8 +155,8 @@ export default function initWorkoutLog({ player, api, onProfileChange }) {
     renderQueue();
 
     toast(`Workout complete! +${xpEarned} XP`);
-    if (leveledUp) toast(`⬆ Level up! You are now Level ${level} — ${player.title}`);
-    for (const badge of newBadges) toast(`${badge.icon} Badge unlocked: ${badge.name}`);
+    if (leveledUp) showLevelUp(level, player.title);
+    for (const badge of newBadges) showBadgeUnlock(badge);
 
     onProfileChange();
   });

@@ -62,6 +62,42 @@
   .queue-item {
     animation: queue-pop var(--dur-fast) ease-out;
   }
+
+  @keyframes levelUpPop {
+    0% {
+      opacity: 0;
+      transform: scale(0.6);
+    }
+    60% {
+      transform: scale(1.08);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .levelup-overlay.is-active .levelup-card {
+    animation: levelUpPop var(--dur-med) var(--ease-snap) both;
+  }
+
+  @keyframes badgePop {
+    0% {
+      opacity: 0;
+      transform: scale(0.8) translateY(12px);
+    }
+    50% {
+      transform: scale(1.05) translateY(0);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  .badge-pop {
+    animation: badgePop var(--dur-med) var(--ease-snap) both;
+  }
 }
 
 /* When reduced motion is requested, the spinner still needs to read as "loading" */

@@ -133,8 +133,9 @@ export default class Player {
       "iron-will": this.state.totalWorkouts >= 10,
       "century-club": (session.volumeKg ?? 0) >= 100,
       "heavy-lifter": (session.maxSetWeightKg ?? 0) >= 100,
+      "macro-master": session.fullDayNutrition === true,
+      "cardio-king": session.cardioOnly === true,
       legend: this.level >= MAX_LEVEL,
-      // "macro-master" and "cardio-king" unlock via Week 6 features
     };
 
     const newlyUnlocked = BADGES.filter(
